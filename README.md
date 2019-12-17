@@ -84,3 +84,12 @@ $ kubectl -n sample-1 apply -f sample-pipeline.yaml
 $ kubectl -n sample-1 apply -f sample-pipelinerun.yaml
 $ kubectl -n sample-1 delete pipelinerun my-run-1
 ~~~
+
+Run or Build Website locally:
+
+~~~
+$ docker run -it --rm -p 8082:80 -v $(pwd)/html:/usr/share/nginx/html:ro nginx:alpine
+
+$ docker build -t sample-website . 
+$ docker run -it --rm -p 8082:80 sample-website:latest
+~~~
