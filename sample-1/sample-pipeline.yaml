@@ -20,9 +20,7 @@ spec:
       script: |
         #!/bin/bash
         set -x
-        ls -la /
-        ls -la /workspace
-        ls -la /workspace/repo
+        set
         cat /workspace/repo/sample-1/message.txt
 ---
 apiVersion: tekton.dev/v1alpha1

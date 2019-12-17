@@ -83,6 +83,11 @@ $ kubectl create namespace sample-1
 $ kubectl -n sample-1 apply -f sample-pipeline.yaml
 $ kubectl -n sample-1 apply -f sample-pipelinerun.yaml
 $ kubectl -n sample-1 delete pipelinerun my-run-1
+
+$ kubectl -n sample-1 apply -f sample-trigger-rbac.yaml
+$ kubectl -n sample-1 apply -f sample-trigger.yaml
+$ kubectl -n sample-1 port-forward svc/el-my-listener 8082:8080
+$ curl 'http://localhost:8082/' -i -X POST -H 'Content-Type: application/json' -d '{}'
 ~~~
 
 Run or Build Website locally:
@@ -92,22 +97,4 @@ $ docker run -it --rm -p 8082:80 -v $(pwd)/html:/usr/share/nginx/html:ro nginx:a
 
 $ docker build -t sample-website . 
 $ docker run -it --rm -p 8082:80 sample-website:latest
-~~~
-
-## Podman selber bauen
-
-~~~
-$ cd podman/
-$ docker build -t podman:latest .
-$ docker tag podman:latest phoswald.ch:5000/podman:latest
-$ docker login phoswald.ch:5000
-$ docker push phoswald.ch:5000/podman:latest
-~~~
-
-Aber Podman in Docker scheint nicht zu gehen (jedenfalls mit overlayfs):
-
-~~~
-$ docker run -it --rm phoswald.ch:5000/podman podman run -it opensuse/leap
-ERRO[0000] 'overlay' is not supported over overlayfs    
-Error: error creating libpod runtime: operation not permitted
 ~~~
