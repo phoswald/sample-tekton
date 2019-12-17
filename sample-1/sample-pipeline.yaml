@@ -5,22 +5,32 @@ metadata:
 spec:
   inputs:
     resources:
-    - name: workspace
-      type: git
-      targetPath: repo
+      - name: workspace
+        type: git
+        targetPath: repo
+    params:
+      - name: param1
+        type: string
+        description: Some parameter
+        default: undefinedInTask
+      - name: param2
+        type: string
+        description: Some parameter
+        default: undefinedInTask
   steps:
     - name: step-one
       image: opensuse/leap:15.1
       command:
         - echo
       args:
-        - "message from my-task-1"
+        - "hello from task with params $(inputs.params.param1) and $(inputs.params.param2)"
     - name: step-two
       image: opensuse/leap:15.1
       script: |
         #!/bin/bash
         set -x
-        set
+        ls -la /
+        ls -la /workspace
         cat /workspace/repo/sample-1/message.txt
 ---
 apiVersion: tekton.dev/v1alpha1
@@ -29,13 +39,27 @@ metadata:
   name: my-pipeline
 spec:
   resources:
-  - name: source-repo
-    type: git
+    - name: source-repo
+      type: git
+  params:
+    - name: param1
+      type: string
+      description: Some parameter
+      default: undefinedInPipeline
+    - name: param2
+      type: string
+      description: Some parameter
+      default: undefinedInPipeline
   tasks:
-  - name: task-one
-    taskRef:
-      name: my-task-1
-    resources:
-      inputs:
-      - name: workspace
-        resource: source-repo
+    - name: task-one
+      taskRef:
+        name: my-task-1
+      resources:
+        inputs:
+          - name: workspace
+            resource: source-repo
+      params:
+        - name: param1
+          value: "$(params.param1)"
+        - name: param2
+          value: "$(params.param2)"

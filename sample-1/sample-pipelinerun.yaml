@@ -5,10 +5,10 @@ metadata:
 spec:
   type: git
   params:
-  - name: revision
-    value: master
-  - name: url
-    value: https://github.com/phoswald/sample-tekton
+    - name: revision
+      value: master
+    - name: url
+      value: https://github.com/phoswald/sample-tekton
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineRun
@@ -22,3 +22,6 @@ spec:
     - name: source-repo
       resourceRef:
         name: my-git
+  params:
+    - name: param1
+      value: my-value-1-from-yaml

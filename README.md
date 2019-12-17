@@ -87,7 +87,10 @@ $ kubectl -n sample-1 delete pipelinerun my-run-1
 $ kubectl -n sample-1 apply -f sample-trigger-rbac.yaml
 $ kubectl -n sample-1 apply -f sample-trigger.yaml
 $ kubectl -n sample-1 port-forward svc/el-my-listener 8082:8080
-$ curl 'http://localhost:8082/' -i -X POST -H 'Content-Type: application/json' -d '{}'
+$ curl 'http://localhost:8082/' -i -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'X-MY-HEADER: my-value-from-header' \
+  -d '{ "head_commit": { "id": "meister" }, "repository": { "url": "https://github.com/phoswald/sample-tekton.git" }, "my-param": "my-value-from-payload" }'
 ~~~
 
 Run or Build Website locally:
