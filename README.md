@@ -90,7 +90,11 @@ $ kubectl -n sample-1 port-forward svc/el-my-listener 8082:8080
 $ curl 'http://localhost:8082/' -i -X POST \
   -H 'Content-Type: application/json' \
   -H 'X-MY-HEADER: my-value-from-header' \
-  -d '{ "head_commit": { "id": "meister" }, "repository": { "url": "https://github.com/phoswald/sample-tekton.git" }, "my-param": "my-value-from-payload" }'
+  -d '{ "head_commit": { "id": "master" }, "repository": { "url": "https://github.com/phoswald/sample-tekton.git" }, "my-param": "my-value-from-payload" }'
+$ curl 'http://localhost:8082/' -i -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'X-MY-HEADER: my-value-from-header' \
+  -d '{ "head_commit": { "id": "959f8cb5361cafde34a989f26626b1de37345acb" }, "repository": { "url": "https://github.com/phoswald/sample-tekton.git" }, "my-param": "my-value-from-payload" }'
 ~~~
 
 Run or Build Website locally:

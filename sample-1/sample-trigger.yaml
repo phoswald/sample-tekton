@@ -26,8 +26,10 @@ spec:
       description: The git repository URL
     - name: myParam
       description: A sample parameter from the JSON payload
+      default: undefinedInTrigger
     - name: myHeader
       description: A sample parameter from the HTTP headers
+      default: undefinedInTrigger
   resourcetemplates:
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
@@ -39,8 +41,15 @@ spec:
         serviceAccountName: 'default'
         resources:
           - name: source-repo
-            resourceRef:
-              name: my-git
+            #resourceRef:
+            #  name: my-git
+            resourceSpec:
+              type: git
+              params:
+                - name: revision
+                  value: $(params.gitrevision)
+                - name: url
+                  value: $(params.gitrepositoryurl)
         params:
           - name: param1
             value: $(params.myParam)
