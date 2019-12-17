@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: my-task-1
+spec:
+  inputs:
+    resources:
+    - name: workspace
+      type: git
+      targetPath: repo
+  steps:
+    - name: step-one
+      image: opensuse/leap:15.1
+      command:
+        - echo
+      args:
+        - "message from my-task-1"
+    - name: step-two
+      image: opensuse/leap:15.1
+      script: |
+        #!/bin/bash
+        set -x
+        ls -la /
+        ls -la /workspace
+        ls -la /workspace/repo
+        cat /workspace/repo/sample-1/message.txt
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: my-pipeline
+spec:
+  resources:
+  - name: source-repo
+    type: git
+  tasks:
+  - name: task-one
+    taskRef:
+      name: my-task-1
+    resources:
+      inputs:
+      - name: workspace
+        resource: source-repo

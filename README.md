@@ -74,3 +74,13 @@ $ curl -L -o tekton-triggers-release.yaml https://storage.googleapis.com/tekton-
 $ kubectl apply -f tekton-triggers-release.yaml
 $ kubectl -n tekton-pipelines get pods
 ~~~
+
+# Sample Pipeline 1
+
+~~~
+$ cd sample-1/
+$ kubectl create namespace sample-1
+$ kubectl -n sample-1 apply -f sample-pipeline.yaml
+$ kubectl -n sample-1 apply -f sample-pipelinerun.yaml
+$ kubectl -n sample-1 delete pipelinerun my-run-1
+~~~

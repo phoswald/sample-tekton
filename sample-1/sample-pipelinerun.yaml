@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: my-git
+spec:
+  type: git
+  params:
+  - name: revision
+    value: master
+  - name: url
+    value: https://github.com/phoswald/sample-tekton
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: my-run-1
+spec:
+  pipelineRef:
+    name: my-pipeline
+  serviceAccountName: 'default'
+  resources:
+    - name: source-repo
+      resourceRef:
+        name: my-git
