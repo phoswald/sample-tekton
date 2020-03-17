@@ -64,7 +64,7 @@ spec:
   serviceAccountName: my-account
   triggers:
     - name: trigger-one
-      binding:
-        name: my-trigger-binding
+      bindings:
+        - name: my-trigger-binding
       template:
         name: my-trigger-template

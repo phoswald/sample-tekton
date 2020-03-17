@@ -4,6 +4,7 @@
 ## Tekton Pipelines
 
 See:
+- https://github.com/tektoncd/pipeline
 - https://github.com/tektoncd/pipeline/blob/master/docs/install.md
 - https://github.com/tektoncd/pipeline/blob/master/docs/tutorial.md
 - https://github.com/tektoncd/cli
@@ -12,27 +13,28 @@ Install Tekton Pipeline:
 
 ~~~
 $ cd tekton-pipelines
-$ curl -L -o tekton-pipeline-release.yaml https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+$ curl -L -o tekton-pipeline-release.yaml        https://github.com/tektoncd/pipeline/releases/download/v0.11.0-rc2/release.yaml
+$ curl -L -o tekton-pipeline-release.notags.yaml https://github.com/tektoncd/pipeline/releases/download/v0.11.0-rc2/release.notags.yaml
 $ kubectl apply -f tekton-pipeline-release.yaml
 $ kubectl -n tekton-pipelines get pods
 ~~~
 
 Install Tekton CLI:
-- TektonCD CLI v0.6.0 is compatible with TektonCD Pipeline v0.9.1.
+- TektonCD CLI v0.8.0 is compatible with TektonCD Pipeline v0.10.1.
 - Also create a link so that `kubectl` will discover it as a plugin.
 
 ~~~
-$ curl -LO https://github.com/tektoncd/cli/releases/download/v0.6.0/tkn_0.6.0_Linux_x86_64.tar.gz
-$ sudo tar xvzf tkn_0.6.0_Linux_x86_64.tar.gz -C /usr/local/bin/ tkn
+$ curl -LO https://github.com/tektoncd/cli/releases/download/v0.8.0/tkn_0.8.0_Linux_x86_64.tar.gz
+$ sudo tar xvzf tkn_0.8.0_Linux_x86_64.tar.gz -C /usr/local/bin/ tkn
 $ sudo chown root:root /usr/local/bin/tkn
 $ sudo ln -s /usr/local/bin/tkn /usr/local/bin/kubectl-tkn
-$ rm tkn_0.6.0_Linux_x86_64.tar.gz
+$ rm tkn_0.8.0_Linux_x86_64.tar.gz
 ~~~
 
 Tutorial
 
 ~~~
-$ cd tekton-pipelines/tutorial
+$ cd tekton-pipelines
 $ kubectl apply -f tutorial/echo-hello-world.yaml
 $ kubectl apply -f tutorial/echo-hello-world-task-run.yaml 
 $ tkn taskrun describe echo-hello-world-task-run
@@ -47,8 +49,9 @@ Install Tekton Dashboard:
 
 ~~~
 $ cd tekton-dashboard
-$ curl -L -o tekton-dashboard-release.yaml https://github.com/tektoncd/dashboard/releases/download/v0.3.0/dashboard-latest-release.yaml
-$ kubectl apply -f tekton-dashboard-release.yaml
+$ curl -L -O https://github.com/tektoncd/dashboard/releases/download/v0.5.3/tekton-dashboard-release.yaml
+$ curl -L -O https://github.com/tektoncd/dashboard/releases/download/v0.5.3/tekton-dashboard-release-readonly.yaml
+$ kubectl apply -f tekton-dashboard-release-readonly.yaml
 ~~~
 
 Access Dashboard locally:
@@ -70,7 +73,7 @@ Install Tekton Triggers:
 
 ~~~
 $ cd tekton-triggers
-$ curl -L -o tekton-triggers-release.yaml https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
+$ curl -L -o tekton-triggers-release.yaml https://github.com/tektoncd/triggers/releases/download/v0.3.1/release.yaml
 $ kubectl apply -f tekton-triggers-release.yaml
 $ kubectl -n tekton-pipelines get pods
 ~~~
